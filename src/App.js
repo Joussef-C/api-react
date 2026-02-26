@@ -5,6 +5,7 @@ import Curr from './Curr';
 
 const API_URL =
   'https://api.coingecko.com/api/v3/coins/markets?vs_currency=gbp&order=market_cap_desc&per_page=100&page=1&sparkline=false';
+const INITIAL_CONVERT_AMOUNT = '1';
 
 const normalizeNumericInput = (value) =>
   String(value ?? '').replace(/[\u00A3,\s]/g, '');
@@ -40,7 +41,7 @@ const formatGbpAmountInput = (value) =>
 function App() {
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState('');
-  const [convertAmount, setConvertAmount] = useState('1');
+  const [convertAmount, setConvertAmount] = useState(INITIAL_CONVERT_AMOUNT);
   const [gbpAmount, setGbpAmount] = useState('');
   const [selectedCoinId, setSelectedCoinId] = useState('');
   const [lastEditedField, setLastEditedField] = useState('coin');
@@ -62,7 +63,7 @@ function App() {
 
         if (response.data.length > 0) {
           const firstCoin = response.data[0];
-          const initialCoinAmount = parseNumberInput(convertAmount);
+          const initialCoinAmount = parseNumberInput(INITIAL_CONVERT_AMOUNT);
 
           setSelectedCoinId(firstCoin.id);
 
